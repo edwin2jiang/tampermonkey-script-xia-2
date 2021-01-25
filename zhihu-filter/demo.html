@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <a href="#aaa">跳转到#aaa</a>
+    <a href="/demo">跳转到demo</a>
+
+    <button onclick="func1()">按钮1</button>
+
+    <script>
+      var user = {
+        name: 'www',
+      }
+
+      console.log(user)
+
+      var func1 = () => {
+        user.name += 'jww'
+      }
+
+      var beforeValue = 'www'
+
+      var beforeURL = window.location.href
+      Object.defineProperty(user, 'name', {
+        set: function (value) {
+          console.log('set: name = ' + value)
+          beforeValue = value
+          return value
+        },
+        get: function () {
+          return beforeValue
+        },
+      })
+
+      // 监控url
+      Object.defineProperty(window.location, 'href', {
+        configurable: true,
+        writable: false,
+        set: function (value) {
+          console.log('set: name = ' + value)
+          beforeURL = value
+          return value
+        },
+        get: function () {
+          return beforeURL
+        },
+      })
+    </script>
+  </body>
+</html>
